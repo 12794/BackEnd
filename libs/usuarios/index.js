@@ -24,27 +24,30 @@ module.exports = class Usuario {
   async addUsuario({
     email,
     nombre,
-    avatar,
+    sexo,
+    fechanacimiento,
+    direccion,
     password,
-    identidad,
-    estado
+    identidad
   }) {
     const result = await this.usuarioDao.insertOne(
       {
         email,
         nombre,
-        avatar,
+        sexo,
+        fechanacimiento,
+        direccion,
         password: bcrypt.hashSync(password),
-        identidad,
-        estado
+        identidad
       }
     );
     return {
       email,
-      nombre,
-      avatar,
-      estado,
-      identidad,
+    nombre,
+    sexo,
+    fechanacimiento,
+    direccion,
+    identidad,
       result
     };
   };

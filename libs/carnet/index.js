@@ -57,7 +57,7 @@ module.exports = class Carnet {
   }
 
   async getCarnetById({ identidad }) {
-    return this.CarnetDao.getById({ identidad });
+    return this.CarnetDao.findOne({ identidad });
   }
 
   async deleteCarnet({ identidad }) {

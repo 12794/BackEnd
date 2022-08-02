@@ -37,9 +37,9 @@ router.get('/allvacunas', async (req, res) => {
   }
 });
 
-router.get('/byid/:identidad', async (req, res) => {
+router.get('/byid', async (req, res) => {
   try {
-    const {identidad} = req.params;
+    const {identidad} = req.body;
     const registro = await car.getCarnetById({identidad});
     return res.status(200).json(registro);
   } catch (ex) {
@@ -51,8 +51,14 @@ router.get('/byid/:identidad', async (req, res) => {
 router.post('/new', async (req, res) => {
   try {
     const {nombre= '',identidad= '',fechanacimiento= '',sexo= '',direccion= '',numero= '',establecimiento= ''} = req.body;
-    const newCarnet = await car.addCarnet({nombre,identidad,fechanacimiento,sexo,direccion,numero,establecimiento});
-    return res.status(200).json(newCarnet);
+    const registro = await car.getCarnetById({identidad});
+    if(registro == null){
+      const newCarnet = await car.addCarnet({nombre,identidad,fechanacimiento,sexo,direccion,numero,establecimiento});
+      return res.status(200).json(newCarnet);
+    }
+    else{
+      return res.status(200).json("Identidad existente");
+    }
   } catch(ex){
     console.error(ex);
     return res.status(502).json({error:'Error al procesar solicitud'});

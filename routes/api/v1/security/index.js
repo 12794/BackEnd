@@ -33,7 +33,7 @@ router.post('/login', async (req, res)=>{
 
 router.post('/signin', async (req, res) => {
   try {
-    const {email, password} = req.body;
+    const {email, password,nombre,identidad,sexo,fechanacimiento,direccion} = req.body;
     console.log(email);
     console.log(password);
     if (/^\s*$/.test(email)) {
@@ -49,10 +49,8 @@ router.post('/signin', async (req, res) => {
     }
     const newUsuario = await user.addUsuario({
       email,
-      nombre : 'John Doe',
-      avatar: '',
+      nombre,identidad,sexo,fechanacimiento,direccion,
       password,
-      estado: 'ACT'
     });
     return res.status(200).json(newUsuario);
   } catch (ex) {

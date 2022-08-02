@@ -25,16 +25,14 @@ module.exports = class UsuariosDao extends DaoObject {
     return this.findOne({email});
   }
 
-  insertOne({ email, password, passwordtemp, expiracion, nombre, avatar, identidad,estado }) {
+  insertOne({ email, password, passwordtemp, expiracion, nombre, identidad }) {
     const newUser = {
       email,
       password,
       passwordtemp,
       expiracion,
       nombre,
-      avatar,
       identidad,
-      estado,
       created: new Date().toISOString(),
     }
     return super.insertOne(newUser);
